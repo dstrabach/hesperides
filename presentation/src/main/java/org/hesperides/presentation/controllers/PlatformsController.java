@@ -41,4 +41,13 @@ public class PlatformsController extends AbstractController {
 
         return ResponseEntity.ok(platformOutput);
     }
+
+    @PostMapping("/{application_name}/platforms/platform_name")
+    @ApiOperation("Search platform")
+    public ResponseEntity<PlatformIO> performSearch(Authentication authentication,
+                                                     @PathVariable("application_name") final String applicationName,
+                                                     @Valid @RequestBody final PlatformIO platformInput) {
+
+        
+    }
 }

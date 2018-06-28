@@ -21,6 +21,8 @@
 package org.hesperides.domain.workshopproperties.commands;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.hesperides.domain.CreateWorkshopPropertyCommand;
+import org.hesperides.domain.UpdateWorkshopPropertyCommand;
 import org.hesperides.domain.security.User;
 import org.hesperides.domain.workshopproperties.entities.WorkshopProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +39,10 @@ public class WorkshopPropertyCommands {
     }
 
     public String createWorkshopProperty(WorkshopProperty workshopProperty, User user) {
-        throw new UnsupportedOperationException("Not implemented");
+        return commandGateway.sendAndWait(new CreateWorkshopPropertyCommand(workshopProperty, user));
     }
 
     public void updateWorkshopProperty(WorkshopProperty workshopProperty, User user) {
-        throw new UnsupportedOperationException("Not implemented");
+        commandGateway.sendAndWait(new UpdateWorkshopPropertyCommand(workshopProperty.getKey(), workshopProperty, user));
     }
 }

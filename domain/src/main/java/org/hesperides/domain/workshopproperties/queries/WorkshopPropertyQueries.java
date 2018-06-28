@@ -21,8 +21,12 @@
 package org.hesperides.domain.workshopproperties.queries;
 
 import org.axonframework.queryhandling.QueryGateway;
+import org.hesperides.domain.WorkshopPropertyExistsQuery;
 import org.hesperides.domain.framework.Queries;
+import org.hesperides.domain.workshopproperties.queries.views.WorkshopPropertyView;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class WorkshopPropertyQueries extends Queries {
@@ -32,6 +36,15 @@ public class WorkshopPropertyQueries extends Queries {
     }
 
     public boolean workshopPropertyExists(String workshopPropertyKey) {
-        throw new UnsupportedOperationException("Not implemented");
+        Optional<WorkshopPropertyView> workshopPropertyView = this.querySyncOptional(
+                new WorkshopPropertyExistsQuery(workshopPropertyKey),
+                WorkshopPropertyView.class);
+        return workshopPropertyView.isPresent();
+    }
+
+    public Optional<WorkshopPropertyView> getOptionalWorkshopPropertyView(String workshopPropertyKey) {
+        return this.querySyncOptional(
+                new WorkshopPropertyExistsQuery(workshopPropertyKey),
+                WorkshopPropertyView.class);
     }
 }
